@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           
           # Thử nghiệm đường dẫn tương đối (từ thư mục gốc FTP của bạn)
-          server-dir: anhdung.viakingvn.com 
+          server-dir: anhdung.viakingvn.com/
           
           local-dir: ./
           
