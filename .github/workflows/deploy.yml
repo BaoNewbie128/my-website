@@ -7,7 +7,6 @@ on:
 
 jobs:
   ftp-deploy:
-    # Tên job đã được đổi lại cho ngắn gọn, nhưng không cần thiết
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout repository
@@ -20,12 +19,12 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           
-          # Thử nghiệm đường dẫn tương đối (từ thư mục gốc FTP của bạn)
-          server-dir: anhdung.viakingvn.com/
+          # Đảm bảo có dấu '/' ở cuối
+          server-dir: public_html/ 
           
           local-dir: ./
           
-          # SỬ DỤNG GIAO THỨC FTPS (An toàn và thông dụng hơn)
+          # Thử FTPS để đảm bảo kết nối được mã hóa
           protocol: ftps 
           
           exclude: |
