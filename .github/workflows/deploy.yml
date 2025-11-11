@@ -1,17 +1,40 @@
-name: Deploy
+name: Deploy to cPanel (FTP)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create PHP config from secrets
+        run: |
+          mkdir -p php
+          cat > php/config.php <<'EOF'
+          <?php
+          define('DB_HOST', '${{ secrets.DB_HOST }}');
+          define('DB_NAME', '${{ secrets.DB_NAME }}');
+          define('DB_USER', '${{ secrets.DB_USER }}');
+          define('DB_PASS', '${{ secrets.DB_PASS }}');
+          try {
+              $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+              $pdo = new PDO($dsn, DB_USER, DB_PASS, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+          } catch (PDOException $e) {
+              die("Lỗi kết nối: " . $e->getMessage());
+          }
+          EOF
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          php-version: '8.1'
-      - name: Deploy placeholder
-        run: echo "Deploy step - add your deploy commands here"
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
