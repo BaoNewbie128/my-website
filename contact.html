@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Liên hệ - MySite</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>MySite</h1>
+      <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Liên hệ</h2>
+    <form method="post" action="php/submit_contact.php">
+      <label>Họ tên
+        <input type="text" name="name" required />
+      </label>
+      <label>Email
+        <input type="email" name="email" required />
+      </label>
+      <label>Nội dung
+        <textarea name="message" required></textarea>
+      </label>
+      <button type="submit">Gửi</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> MySite</div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
