@@ -13,13 +13,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 📤 Upload files to cPanel
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5 # Đã sửa phiên bản
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/
+          
+          # Đã thay đổi đường dẫn để khắc phục lỗi "Home directory not available"
+          # Sử dụng đường dẫn tương đối, bắt đầu từ thư mục gốc của tài khoản FTP.
+          server-dir: public_html/ 
+          
           local-dir: ./
+          
+          # Thêm giao thức FTPS (an toàn) để tăng khả năng kết nối
+          protocol: ftps
+          
           exclude: |
             **/.git*
             **/.github*
