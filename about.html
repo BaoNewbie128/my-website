@@ -1,20 +1,31 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Giới thiệu - MySite</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <header>
-    <h1>About Us</h1>
+  <header class="site-header">
+    <div class="container">
+      <h1>MySite</h1>
+      <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <p>This is about.html.</p>
+
+  <main class="container">
+    <h2>Về chúng tôi</h2>
+    <p>Thông tin giới thiệu ngắn gọn.</p>
   </main>
-  <footer>
-    <p>&copy; 2025</p>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> MySite</div>
   </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
