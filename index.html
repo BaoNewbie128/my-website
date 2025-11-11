@@ -1,20 +1,36 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trang mẫu - MySite</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Welcome</h1>
+  <header class="site-header">
+    <div class="container">
+      <h1>MySite</h1>
+      <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <p>This is index.html.</p>
+
+  <main class="container">
+    <section>
+      <h2>Chào mừng bạn đến với MySite</h2>
+      <p>Đây là website demo bằng HTML thuần. Bạn có thể mở rộng thêm nội dung, ảnh, script tùy ý.</p>
+    </section>
   </main>
-  <footer>
-    <p>&copy; 2025</p>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> MySite</div>
   </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
