@@ -1,13 +1,17 @@
 <?php
-// Simple contact form handler (placeholder)
+require_once __DIR__ . '/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $message = $_POST['message'] ?? '';
-    // TODO: validate and persist/send
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'ok', 'received' => compact('name','email','message')]);
-    exit;
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+
+    if ($name && $email && $message) {
+        $stmt = $pdo->prepare("INSERT INTO contacts (name, email, message, created_at) VALUES (?, ?, ?, NOW())");
+        $stmt->execute([$name, $email, $message]);
+        header('Location: ../contact.html?success=1');
+        exit;
+    } else {
+        echo "❌ Vui lòng nhập đầy đủ thông tin.";
+    }
 }
-http_response_code(405);
-echo 'Method Not Allowed';
