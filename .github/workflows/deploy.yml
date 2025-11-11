@@ -19,12 +19,12 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           
-          # Đảm bảo có dấu '/' ở cuối
-          server-dir: public_html/ 
+          # Đã sửa lỗi đường dẫn: Dùng đường dẫn tuyệt đối chính xác từ CPanel
+          server-dir: /home/viakingv/anhdung.viakingvn.com/ 
           
           local-dir: ./
           
-          # Thử FTPS để đảm bảo kết nối được mã hóa
+          # Giữ lại FTPS để bảo mật. Thử FTP nếu vẫn lỗi.
           protocol: ftps 
           
           exclude: |
