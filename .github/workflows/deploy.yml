@@ -1,40 +1,27 @@
-name: Deploy to cPanel (FTP)
+name: Deploy to cPanel via FTP
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create PHP config from secrets
-        run: |
-          mkdir -p php
-          cat > php/config.php <<'EOF'
-          <?php
-          define('DB_HOST', '${{ secrets.DB_HOST }}');
-          define('DB_NAME', '${{ secrets.DB_NAME }}');
-          define('DB_USER', '${{ secrets.DB_USER }}');
-          define('DB_PASS', '${{ secrets.DB_PASS }}');
-          try {
-              $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-              $pdo = new PDO($dsn, DB_USER, DB_PASS, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-          } catch (PDOException $e) {
-              die("Lỗi kết nối: " . $e->getMessage());
-          }
-          EOF
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+      - name: 📤 Upload files to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          server-dir: /public_html/
           local-dir: ./
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/README.md
