@@ -1,0 +1,20 @@
+/* Basic styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+header {
+  background: #f2f2f2;
+  padding: 1rem;
+}
+main {
+  padding: 1rem;
+}
+footer {
+  background: #fafafa;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
